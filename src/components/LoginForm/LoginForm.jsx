@@ -22,7 +22,7 @@ export default function LoginForm() {
          }}
          onSubmit={handleSubmit}
       >
-         <Form className={css.form} autoComplete="off">
+         <Form className={css.form}>
             <label className={css.label} htmlFor={`email-${id}`}>
                Email
                <Field
