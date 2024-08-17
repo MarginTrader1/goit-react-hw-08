@@ -2,7 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "https://66a26582967c89168f1fee5f.mockapi.io/";
+// axios.defaults.baseURL = "https://66a26582967c89168f1fee5f.mockapi.io/";
 
 // тост для добавления контакта
 const notify = () => toast.success("Сontact successfully added!");
