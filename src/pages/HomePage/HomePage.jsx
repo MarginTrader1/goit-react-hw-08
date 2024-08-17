@@ -3,9 +3,9 @@ import css from "./HomePage.module.css";
 const HomePage = () => {
    return (
       <>
-         <div className={css.container}>
-            <h1 className={css.title}>
-               Phonebook{" "}
+         <div className={css.title}>
+            <h1>
+               Phonebook
                <span role="img" aria-label="Greeting icon">
                   📲
                </span>
