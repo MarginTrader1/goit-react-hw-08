@@ -45,9 +45,20 @@ const authSlice = createSlice({
          .addCase(logout.rejected, (state, action) => {})
 
          // блок для refreshUser
-         .addCase(refreshUser.pending, (state, action) => {})
-         .addCase(refreshUser.fulfilled, (state, action) => {})
-         .addCase(refreshUser.rejected, (state, action) => {});
+         .addCase(refreshUser.pending, (state) => {
+            // когда идет запрос на сервер - меняем флажок на true
+            state.isRefreshing = true;
+         })
+         .addCase(refreshUser.fulfilled, (state, action) => {
+            state.user = action.payload;
+            state.isLoggedIn = true;
+            // после удачного запроса на сервер - меняем флажок на false
+            state.isRefreshing = false;
+         })
+         .addCase(refreshUser.rejected, (state) => {
+            // или после неудачного запроса на сервер тоже меняем флажок на false
+            state.isRefreshing = false;
+         });
    },
 });
 

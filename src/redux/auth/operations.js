@@ -48,11 +48,28 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 });
 
 //оновлення юзера
-export const refreshUser = createAsyncThunk("auth/refresh", async (user, thunkAPI) => {
-   try {
-      const response = await axios.get("/users/current", user);
-      return response.data;
-   } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+export const refreshUser = createAsyncThunk(
+   "auth/refresh",
+   async (_, thunkAPI) => {
+      try {
+         // читаем редакс state с помощью метода thunkAPI getState
+         const reduxState = thunkAPI.getState();
+         const token = reduxState.auth.token;
+         setAuthHeader(token);
+
+         const response = await axios.get("/users/current");
+         return response.data;
+      } catch (error) {
+         return thunkAPI.rejectWithValue(error.message);
+      }
+   },
+
+   // третий аргумент для thunkAPI - condition (условие)
+   {
+      condition: (_, thunkAPI) => {
+         // если token !== null (т.е. true), то запрос на сервер будет выполнен
+         const reduxState = thunkAPI.getState();
+         return reduxState.auth.token !== null;
+      },
    }
-});
+);
