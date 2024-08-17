@@ -1,0 +1,18 @@
+.input {
+   max-width: 500px;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.input > input {
+   min-width: 300px;
+   padding: 10px;
+   border: 1px solid rgb(155, 155, 155);
+   border-radius: 7px;
+}
+
+.input > input:focus {
+   border-color: blue;
+   outline: none;
+}
