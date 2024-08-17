@@ -21,13 +21,15 @@ export default function LoginForm() {
          <Form className={css.form} autoComplete="off">
             <label className={css.label}>
                Email
-               <Field type="email" name="email" />
+               <Field type="email" name="email" className={css.inputField}/>
             </label>
             <label className={css.label}>
                Password
-               <Field type="password" name="password" />
+               <Field type="password" name="password" className={css.inputField}/>
             </label>
-            <button type="submit">Log In</button>
+            <button type="submit" className={css.button}>
+               Log In
+            </button>
          </Form>
       </Formik>
    );

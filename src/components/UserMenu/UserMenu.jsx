@@ -12,6 +12,7 @@ export default function UserMenu() {
          <p className={css.username}>{`Welcome, ${user.name}`}</p>
          <button
             type="button"
+            className={css.button}
             onClick={() => {
                dispatch(logout());
             }}
