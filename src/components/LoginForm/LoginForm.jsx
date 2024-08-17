@@ -1,7 +1,9 @@
 import { Formik, Form, Field } from "formik";
-import css from "./LoginForm.module.css";
 import { login } from "../../redux/auth/operations";
 import { useDispatch } from "react-redux";
+import { useId } from "react";
+
+import css from "./LoginForm.module.css";
 
 export default function LoginForm() {
    const dispatch = useDispatch();
@@ -9,6 +11,8 @@ export default function LoginForm() {
       dispatch(login(values));
       actions.resetForm();
    };
+
+   const id = useId();
 
    return (
       <Formik
@@ -19,13 +23,25 @@ export default function LoginForm() {
          onSubmit={handleSubmit}
       >
          <Form className={css.form} autoComplete="off">
-            <label className={css.label}>
+            <label className={css.label} htmlFor={`email-${id}`}>
                Email
-               <Field type="email" name="email" className={css.inputField}/>
+               <Field
+                  className={css.inputField}
+                  type="email"
+                  name="email"
+                  id={`email-${id}`}
+                  placeholder="Enter email..."
+               />
             </label>
-            <label className={css.label}>
+            <label className={css.label} htmlFor={`password-${id}`}>
                Password
-               <Field type="password" name="password" className={css.inputField}/>
+               <Field
+                  className={css.inputField}
+                  type="text"
+                  name="password"
+                  id={`password-${id}`}
+                  placeholder="Enter password..."
+               />
             </label>
             <button type="submit" className={css.button}>
                Log In

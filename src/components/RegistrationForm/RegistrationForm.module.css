@@ -20,6 +20,11 @@
    border-radius: 7px;
 }
 
+.inputField:focus {
+   border-color: blue;
+   outline: none;
+}
+
 .button {
    width: 200px;
    height: 40px;

@@ -1,8 +1,10 @@
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
+import { useId } from "react";
 
 import css from "./RegistrationForm.module.css";
 import { register } from "../../redux/auth/operations";
+
 export default function RegistrationForm() {
    const dispatch = useDispatch();
    const handleSubmit = (values, actions) => {
@@ -10,6 +12,8 @@ export default function RegistrationForm() {
       dispatch(register(values));
       actions.resetForm();
    };
+
+   const id = useId();
 
    return (
       <Formik
@@ -21,17 +25,35 @@ export default function RegistrationForm() {
          onSubmit={handleSubmit}
       >
          <Form className={css.form} autoComplete="off">
-            <label className={css.label}>
+            <label className={css.label} htmlFor={`name-${id}`}>
                Username
-               <Field type="text" name="name" className={css.inputField} />
+               <Field
+                  type="text"
+                  name="name"
+                  id={`name-${id}`}
+                  className={css.inputField}
+                  placeholder="Enter name..."
+               />
             </label>
-            <label className={css.label}>
+            <label className={css.label} htmlFor={`email-${id}`}>
                Email
-               <Field type="email" name="email" className={css.inputField} />
+               <Field
+                  type="email"
+                  name="email"
+                  id={`email-${id}`}
+                  className={css.inputField}
+                  placeholder="Enter email..."
+               />
             </label>
-            <label className={css.label}>
+            <label className={css.label} htmlFor={`password-${id}`}>
                Password
-               <Field type="password" name="password" className={css.inputField} />
+               <Field
+                  type="text"
+                  name="password"
+                  id={`password-${id}`}
+                  className={css.inputField}
+                  placeholder="Enter password..."
+               />
             </label>
             <button type="submit" className={css.button}>
                Register
