@@ -2,10 +2,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// axios.defaults.baseURL = "https://66a26582967c89168f1fee5f.mockapi.io/";
+axios.defaults.baseURL = "https://connections-api.goit.global/";
 
 // тост для добавления контакта
-const notify = () => toast.success("Сontact successfully added!");
+const notifyAdded = () => toast.success("Сontact successfully added!");
+const notifyDeleted = () => toast.success("Сontact successfully deleted!");
 
 // структура ассинхронного запроса из библиотеки
 // redux-toolkit примеры для createAsyncThunk
@@ -22,7 +23,7 @@ export const fetchContacts = createAsyncThunk("contacts/fetchAll", async (_, thu
 export const addContact = createAsyncThunk("contacts/addContact", async (contact, thunkAPI) => {
    try {
       const response = await axios.post("/contacts", contact);
-      notify();
+      notifyAdded();
       return response.data;
    } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -33,6 +34,7 @@ export const addContact = createAsyncThunk("contacts/addContact", async (contact
 export const deleteContact = createAsyncThunk("contacts/deleteContact", async (id, thunkAPI) => {
    try {
       const response = await axios.delete(`/contacts/${id}`);
+      notifyDeleted()
       return response.data;
    } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
