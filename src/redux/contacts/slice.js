@@ -1,9 +1,7 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-import { selectNameFilter } from "./filtersSlice";
-
-import { mainState } from "./data";
-import { fetchContacts, addContact, deleteContact } from "./contactsOps";
+import { mainState } from "../data";
+import { fetchContacts, addContact, deleteContact } from "./operations";
 
 
 const handlePending = (state, action) => {
@@ -52,22 +50,4 @@ const contactsSlice = createSlice({
 // редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;
 
-// селекторы
-export const selectContacts = (state) => state.contacts.items;
-export const selectError = (state) => state.contacts.error;
-export const selectLoading = (state) => state.contacts.loading;
 
-// складна функция-селектор = массив зависимостей + колбэк
-export const selectFilteredContacts = createSelector(
-   // в зависимости передаем простые функции-селекторы
-   [selectContacts, selectNameFilter],
-
-   // в аргументы колбэка передаем результат выполнения простых селекторов
-   (contacts, filter) => {
-      //фильтруем контакты через фильтр
-      const filteredContacts = contacts.filter((item) =>
-         item.name.toLowerCase().includes(filter.toLowerCase())
-      );
-      return filteredContacts;
-   }
-);
