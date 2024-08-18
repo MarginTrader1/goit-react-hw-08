@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { mainState } from "../data";
 import { fetchContacts, addContact, deleteContact } from "./operations";
+import { logout } from "../auth/operations";
 
-
-const handlePending = (state, action) => {
+const handlePending = (state) => {
    state.loading = true;
 };
 
@@ -26,7 +25,7 @@ const contactsSlice = createSlice({
             state.items = action.payload;
          })
          .addCase(fetchContacts.rejected, handleRejected)
-         
+
          // блок додавання контакту
          .addCase(addContact.pending, handlePending)
          .addCase(addContact.fulfilled, (state, action) => {
@@ -43,11 +42,16 @@ const contactsSlice = createSlice({
             state.error = null;
             state.items = state.items.filter((item) => item.id !== action.payload.id);
          })
-         .addCase(deleteContact.rejected, handleRejected);
+         .addCase(deleteContact.rejected, handleRejected)
+
+         // при logout очищаем стейт контактов
+         .addCase(logout.fulfilled, (state) => {
+            state.items = [];
+            state.loading = false;
+            state.error = null;
+         });
    },
 });
 
 // редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;
-
-
